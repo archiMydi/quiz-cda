@@ -1,0 +1,99 @@
+<div
+  class="bg-blue-500 flex items-center justify-center min-h-screen text-white p-6"
+>
+  <div class="bg-white text-gray-900 p-8 rounded-lg shadow-lg w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-center">Configurer la partie</h2>
+
+    <form (submit)="onSubmit()" class="space-y-4">
+      <!-- Nom -->
+      <div>
+        <label for="nom" class="block font-medium mb-1">Nom</label>
+        <input
+          type="text"
+          id="nom"
+          [(ngModel)]="nom"
+          name="nom"
+          class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <!-- Prénom -->
+      <div>
+        <label for="prenom" class="block font-medium mb-1">Prénom</label>
+        <input
+          type="text"
+          id="prenom"
+          [(ngModel)]="prenom"
+          name="prenom"
+          class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <!-- Nombre de questions -->
+      <div>
+        <label for="questions" class="block font-medium mb-1"
+          >Nombre de questions</label
+        >
+        <input
+          type="number"
+          id="questions"
+          [(ngModel)]="nombreQuestions"
+          name="questions"
+          min="5"
+          max="20"
+          class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <!-- Catégorie -->
+      <div>
+        <label for="categorie" class="block font-medium mb-1">Catégorie</label>
+        <select
+          id="categorie"
+          [(ngModel)]="categorie"
+          name="categorie"
+          class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
+        >
+          <option *ngFor="let cat of categories" [value]="cat">
+            {{ cat }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Type de questions -->
+      <div>
+        <p class="font-medium mb-2">Type de questions</p>
+        <div class="flex gap-4">
+          <label class="flex items-center">
+            <input
+              type="radio"
+              [(ngModel)]="typeQuestion"
+              name="typeQuestion"
+              value="QCM"
+              class="mr-2"
+            />
+            QCM
+          </label>
+          <label class="flex items-center">
+            <input
+              type="radio"
+              [(ngModel)]="typeQuestion"
+              name="typeQuestion"
+              value="Vrai/Faux"
+              class="mr-2"
+            />
+            Vrai / Faux
+          </label>
+        </div>
+      </div>
+
+      <!-- Bouton de validation -->
+      <button
+        type="submit"
+        class="w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700"
+      >
+        Valider
+      </button>
+    </form>
+  </div>
+</div>
