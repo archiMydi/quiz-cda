@@ -4,71 +4,76 @@
   <div class="bg-white text-gray-900 p-8 rounded-lg shadow-lg w-full max-w-md">
     <h2 class="text-2xl font-bold mb-6 text-center">Configurer la partie</h2>
 
-    <form (submit)="onSubmit()" class="space-y-4">
-      <!-- Nom -->
+    <form (submit)="onSubmit()" ngNativeValidate class="space-y-4">
+      <!-- Name -->
       <div>
-        <label for="nom" class="block font-medium mb-1">Nom</label>
+        <label for="last_name" class="block font-medium mb-1">Nom</label>
         <input
           type="text"
-          id="nom"
-          [(ngModel)]="nom"
-          name="nom"
+          required
+          id="last_name"
+          [(ngModel)]="last_name"
+          name="last_name"
           class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
-      <!-- Prénom -->
+      <!-- First name -->
       <div>
-        <label for="prenom" class="block font-medium mb-1">Prénom</label>
+        <label for="first_name" class="block font-medium mb-1">Prénom</label>
         <input
           type="text"
-          id="prenom"
-          [(ngModel)]="prenom"
-          name="prenom"
+          required
+          id="first_name"
+          [(ngModel)]="first_name"
+          name="first_name"
           class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
-      <!-- Nombre de questions -->
+      <!-- Question count -->
       <div>
-        <label for="questions" class="block font-medium mb-1"
+        <label for="question_count" class="block font-medium mb-1"
           >Nombre de questions</label
         >
         <input
           type="number"
-          id="questions"
-          [(ngModel)]="nombreQuestions"
-          name="questions"
+          required
+          id="question_count"
+          [(ngModel)]="question_count"
+          name="question_count"
           min="5"
           max="20"
           class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
-      <!-- Catégorie -->
+      <!-- Category -->
       <div>
-        <label for="categorie" class="block font-medium mb-1">Catégorie</label>
+        <label for="category" class="block font-medium mb-1">Catégorie</label>
         <select
-          id="categorie"
-          [(ngModel)]="categorie"
-          name="categorie"
+          id="category"
+          required
+          [(ngModel)]="category"
+          name="category"
           class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
         >
-          <option *ngFor="let cat of categories" [value]="cat">
-            {{ cat }}
+          <option *ngFor="let cat of categories" [value]="cat.id">
+            {{ cat.name }}
           </option>
         </select>
       </div>
 
-      <!-- Type de questions -->
+      <!-- Quiz type -->
       <div>
         <p class="font-medium mb-2">Type de questions</p>
         <div class="flex gap-4">
           <label class="flex items-center">
             <input
               type="radio"
-              [(ngModel)]="typeQuestion"
-              name="typeQuestion"
+              required
+              [(ngModel)]="quiz_type"
+              name="quiz_type"
               value="QCM"
               class="mr-2"
             />
@@ -77,9 +82,10 @@
           <label class="flex items-center">
             <input
               type="radio"
-              [(ngModel)]="typeQuestion"
-              name="typeQuestion"
-              value="Vrai/Faux"
+              required
+              [(ngModel)]="quiz_type"
+              name="quiz_type"
+              value="VF"
               class="mr-2"
             />
             Vrai / Faux
@@ -87,10 +93,10 @@
         </div>
       </div>
 
-      <!-- Bouton de validation -->
+      <!-- Submit -->
       <button
         type="submit"
-        class="w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700"
+        class="w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700 cursor-pointer"
       >
         Valider
       </button>

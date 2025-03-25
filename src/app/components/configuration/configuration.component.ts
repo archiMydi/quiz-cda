@@ -1,6 +1,8 @@
 import { NgFor, NgForOf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-configuration',
@@ -8,28 +10,31 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './configuration.component.html',
   styleUrls: ['./configuration.component.scss'],
 })
-export class ConfigurationComponent {
-  nom: string = '';
-  prenom: string = '';
-  nombreQuestions: number = 5;
-  categorie: string = 'Catégorie 1';
-  typeQuestion: string = 'QCM';
+export class ConfigurationComponent implements OnInit {
+  constructor(private router: Router, private apiService: ApiService) {}
 
-  categories: string[] = [
-    'Catégorie 1',
-    'Catégorie 2',
-    'Catégorie 3',
-    'Catégorie 4',
-    'Catégorie 5',
-  ];
+  last_name: string = '';
+  first_name: string = '';
+  question_count: number = 5;
+  category: string = 'Catégorie 1';
+  quiz_type: string = 'QCM';
+  categories: any[] = [];
+
+  ngOnInit() {
+    this.apiService.getCategories().subscribe((response: any) => {
+      this.categories = response.trivia_categories;
+    });
+  }
 
   onSubmit() {
-    console.log({
-      nom: this.nom,
-      prenom: this.prenom,
-      nombreQuestions: this.nombreQuestions,
-      categorie: this.categorie,
-      typeQuestion: this.typeQuestion,
-    });
+    const queryParams = {
+      last_name: this.last_name,
+      first_name: this.first_name,
+      question_count: this.question_count,
+      category: this.category,
+      quiz_type: this.quiz_type,
+    };
+
+    this.router.navigate(['/quiz'], { queryParams: queryParams });
   }
 }
