@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-quiz',
@@ -13,7 +14,7 @@ export class QuizComponent implements OnInit {
   category: string | null = null;
   quizType: string | null = null;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private apiService: ApiService) {}
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
@@ -25,5 +26,26 @@ export class QuizComponent implements OnInit {
       this.category = params['category'];
       this.quizType = params['quiz_type'];
     });
+
+    console.log({
+      lastName: this.lastName,
+      firstName: this.firstName,
+      questionCount: this.questionCount,
+      category: this.category,
+      quizType: this.quizType,
+    });
+
+    if (this.questionCount && this.category && this.quizType) {
+      this.apiService
+        .getQuestions(this.questionCount, this.category, this.quizType)
+        .subscribe(
+          (response) => {
+            console.log("Réponse de l'API:", response);
+          },
+          (error) => {
+            console.error("Erreur lors de l'appel à l'API:", error);
+          }
+        );
+    }
   }
 }
