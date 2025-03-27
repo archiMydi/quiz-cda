@@ -5,7 +5,6 @@
     <h2 class="text-2xl font-bold mb-6 text-center">Configurer la partie</h2>
 
     <form (submit)="onSubmit()" ngNativeValidate class="space-y-4">
-      <!-- Name -->
       <div>
         <label for="last_name" class="block font-medium mb-1">Nom</label>
         <input
@@ -18,7 +17,6 @@
         />
       </div>
 
-      <!-- First name -->
       <div>
         <label for="first_name" class="block font-medium mb-1">Prénom</label>
         <input
@@ -31,7 +29,6 @@
         />
       </div>
 
-      <!-- Question count -->
       <div>
         <label for="question_count" class="block font-medium mb-1"
           >Nombre de questions</label
@@ -48,14 +45,14 @@
         />
       </div>
 
-      <!-- Category -->
       <div>
         <label for="category" class="block font-medium mb-1">Catégorie</label>
         <select
           id="category"
           required
-          [(ngModel)]="category"
+          [(ngModel)]="categoryId"
           name="category"
+          (change)="updateCategoryLabel()"
           class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
         >
           <option *ngFor="let cat of categories" [value]="cat.id">
@@ -64,7 +61,8 @@
         </select>
       </div>
 
-      <!-- Quiz type -->
+      <input type="hidden" name="categoryLabel" [(ngModel)]="categoryLabel" />
+
       <div>
         <p class="font-medium mb-2">Type de questions</p>
         <div class="flex gap-4">
@@ -93,7 +91,6 @@
         </div>
       </div>
 
-      <!-- Submit -->
       <button
         type="submit"
         class="w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700 cursor-pointer"

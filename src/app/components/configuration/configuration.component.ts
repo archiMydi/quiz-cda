@@ -16,7 +16,8 @@ export class ConfigurationComponent implements OnInit {
   last_name: string = '';
   first_name: string = '';
   question_count: number = 5;
-  category: string = 'Catégorie 1';
+  categoryId: string = '';
+  categoryLabel: string = '';
   quiz_type: string = 'QCM';
   categories: any[] = [];
 
@@ -26,12 +27,20 @@ export class ConfigurationComponent implements OnInit {
     });
   }
 
+  updateCategoryLabel() {
+    const selectedCategory = this.categories.find(
+      (cat) => cat.id == this.categoryId
+    );
+    this.categoryLabel = selectedCategory ? selectedCategory.name : '';
+  }
+
   onSubmit() {
     const queryParams = {
       last_name: this.last_name,
       first_name: this.first_name,
       question_count: this.question_count,
-      category: this.category,
+      categoryId: this.categoryId,
+      categoryLabel: this.categoryLabel,
       quiz_type: this.quiz_type,
     };
 

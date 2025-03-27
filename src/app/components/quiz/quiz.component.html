@@ -1,3 +1,89 @@
 <div
-  class="bg-blue-500 flex items-center justify-center min-h-screen text-white"
-></div>
+  class="bg-blue-500 flex flex-col items-center justify-center min-h-screen text-white p-4"
+>
+  <div class="mb-6">
+    <h2 class="text-5xl font-bold">{{ categoryLabel }}</h2>
+    <p class="text-xl my-4 text-center font-bold">
+      Question {{ currentQuestionIndex + 1 }}/{{ questions.length }}
+    </p>
+  </div>
+
+  <div class="bg-white text-gray-900 p-8 rounded-lg shadow-lg w-full max-w-md">
+    <p class="mb-4 text-xl break-words">
+      {{ questions[currentQuestionIndex]?.question }}
+    </p>
+
+    <form (ngSubmit)="submitAnswer()" #answerForm="ngForm">
+      <div *ngIf="quizType === 'multiple'">
+        <div *ngFor="let answer of currentShuffledAnswers">
+          <label class="flex items-center mb-2">
+            <input
+              type="radio"
+              name="answer"
+              [value]="answer"
+              [(ngModel)]="selectedAnswer"
+              required
+              class="mr-2"
+              [disabled]="answered"
+            />
+            {{ answer }}
+          </label>
+        </div>
+      </div>
+
+      <div *ngIf="quizType === 'boolean'">
+        <label class="flex items-center mb-2">
+          <input
+            type="radio"
+            name="answer"
+            value="True"
+            [(ngModel)]="selectedAnswer"
+            required
+            class="mr-2"
+            [disabled]="answered"
+          />
+          Vrai
+        </label>
+        <label class="flex items-center mb-2">
+          <input
+            type="radio"
+            name="answer"
+            value="False"
+            [(ngModel)]="selectedAnswer"
+            required
+            class="mr-2"
+            [disabled]="answered"
+          />
+          Faux
+        </label>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="answered"
+        class="w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700 mt-4"
+      >
+        Valider
+      </button>
+    </form>
+
+    <div *ngIf="answered" class="mt-4">
+      <p
+        [ngClass]="{
+          'text-green-500': feedback === 'Correct',
+          'text-red-500': feedback === 'Incorrect'
+        }"
+      >
+        {{ feedback }}. La bonne réponse était : {{ correctAnswer }}
+      </p>
+    </div>
+
+    <button
+      *ngIf="answered"
+      (click)="nextQuestion()"
+      class="mt-4 bg-green-600 text-white py-2 px-4 rounded-md"
+    >
+      Suivant
+    </button>
+  </div>
+</div>
