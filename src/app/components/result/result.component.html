@@ -1,16 +1,25 @@
+<!-- Main container with a blue background, centered content, and padding -->
 <div
   class="bg-blue-500 flex flex-col items-center justify-center min-h-screen text-white p-4"
 >
+  <!-- Title of the results page -->
   <h1 class="text-4xl font-bold mb-4">Résultats du Quiz</h1>
+
+  <!-- Card container for displaying quiz results -->
   <div class="bg-white text-gray-900 p-8 rounded-lg shadow-lg w-full max-w-md">
+    <!-- Display the last name of the user -->
     <p class="text-xl mb-2"><strong>Nom :</strong> {{ lastName }}</p>
+    <!-- Display the first name of the user -->
     <p class="text-xl mb-2"><strong>Prénom :</strong> {{ firstName }}</p>
+    <!-- Display the category of the quiz -->
     <p class="text-xl mb-2"><strong>Catégorie :</strong> {{ categoryLabel }}</p>
+    <!-- Display the user's score and total questions -->
     <p class="text-xl mb-2">
       <strong>Score :</strong> {{ correctAnswers }} / {{ totalQuestions }}
     </p>
   </div>
 
+  <!-- Button to replay the quiz -->
   <button
     (click)="replayQuiz()"
     class="mt-6 bg-green-600 text-white py-2 px-4 rounded-md font-semibold hover:bg-green-700"
