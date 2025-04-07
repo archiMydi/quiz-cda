@@ -1,0 +1,116 @@
+<!-- Main container with a blue background and centered content -->
+<div
+  class="bg-blue-500 flex items-center justify-center min-h-screen text-white p-6"
+>
+  <!-- Inner container with a white background, rounded corners, and shadow -->
+  <div class="bg-white text-gray-900 p-8 rounded-lg shadow-lg w-full max-w-md">
+    <!-- Title of the form -->
+    <h2 class="text-2xl font-bold mb-6 text-center">Configurer la partie</h2>
+
+    <!-- Form for configuring the quiz -->
+    <form (submit)="onSubmit()" ngNativeValidate class="space-y-4">
+      <!-- Input field for the last name -->
+      <div>
+        <label for="last_name" class="block font-medium mb-1">Nom</label>
+        <input
+          type="text"
+          required
+          id="last_name"
+          [(ngModel)]="last_name"
+          name="last_name"
+          class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <!-- Input field for the first name -->
+      <div>
+        <label for="first_name" class="block font-medium mb-1">Prénom</label>
+        <input
+          type="text"
+          required
+          id="first_name"
+          [(ngModel)]="first_name"
+          name="first_name"
+          class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <!-- Input field for the number of questions -->
+      <div>
+        <label for="question_count" class="block font-medium mb-1"
+          >Nombre de questions</label
+        >
+        <input
+          type="number"
+          required
+          id="question_count"
+          [(ngModel)]="question_count"
+          name="question_count"
+          min="5"
+          max="20"
+          class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      <!-- Dropdown for selecting a category -->
+      <div>
+        <label for="category" class="block font-medium mb-1">Catégorie</label>
+        <select
+          id="category"
+          required
+          [(ngModel)]="categoryId"
+          name="category"
+          (change)="updateCategoryLabel()"
+          class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500"
+        >
+          <!-- Dynamically generated options for categories -->
+          <option *ngFor="let cat of categories" [value]="cat.id">
+            {{ cat.name }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Hidden input to store the selected category label -->
+      <input type="hidden" name="categoryLabel" [(ngModel)]="categoryLabel" />
+
+      <!-- Radio buttons for selecting the quiz type -->
+      <div>
+        <p class="font-medium mb-2">Type de questions</p>
+        <div class="flex gap-4">
+          <!-- Option for multiple-choice questions -->
+          <label class="flex items-center">
+            <input
+              type="radio"
+              required
+              [(ngModel)]="quiz_type"
+              name="quiz_type"
+              value="multiple"
+              class="mr-2"
+            />
+            QCM
+          </label>
+          <!-- Option for true/false questions -->
+          <label class="flex items-center">
+            <input
+              type="radio"
+              required
+              [(ngModel)]="quiz_type"
+              name="quiz_type"
+              value="boolean"
+              class="mr-2"
+            />
+            Vrai / Faux
+          </label>
+        </div>
+      </div>
+
+      <!-- Submit button for the form -->
+      <button
+        type="submit"
+        class="w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700 cursor-pointer"
+      >
+        Valider
+      </button>
+    </form>
+  </div>
+</div>
